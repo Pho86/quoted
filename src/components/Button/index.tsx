@@ -16,7 +16,7 @@ export default function Button({
 
 }) {
    return (
-      <button type={type} onClick={onClick} disabled={disabled} className={twMerge(`p-3 w-full bg-white text-black border-2 border-black text-xl hover:bg-black hover:text-secondary transition-all duration-75 drop-shadow-primary `, className)}>
+      <button type={type} onClick={onClick} disabled={disabled} className={twMerge(`p-3 w-full bg-white text-black border-2 border-black text-xl hover:bg-zinc-200 hover:shadow-lg dark:hover:shadow-black/10 hover:text-black transition-all duration-75 drop-shadow-primary `, className)}>
          {children}
       </button>
    )

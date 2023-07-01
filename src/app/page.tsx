@@ -10,7 +10,7 @@ export default function Home() {
    const [quotes, setQuotes] = useState([])
 
    const { user } = useContext(AuthContext)
-   
+
    useEffect(() => {
       const getQuotes = async () => {
          const res = await axios.get('/api/quote')
@@ -23,11 +23,13 @@ export default function Home() {
          .catch(console.error);
    }, [])
    return (
-      <main className="flex min-h-screen flex-col p-12">
-         <div>Quoted</div>
-         {quotes.map((quote: any, i) => (
-            <Quote key={quote.id} quote={quote} user={user}/>
-         ))}
+      <main className="flex min-h-screen flex-col px-0 lg:px-16  md:py-12 mt-0 md:my-5">
+         <section className='flex flex-col gap-2 px-8 mt-8 md:mt-16'>
+            <h1 className='text-2xl font-bold mb-2'>recent quotes</h1>
+            {quotes.map((quote: any, i) => (
+               <Quote key={quote.id} quote={quote} user={user} />
+            ))}
+         </section>
       </main>
    )
 }

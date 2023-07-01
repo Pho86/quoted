@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Input from '../Input';
 import Button from '../Button';
 import axios from "axios"
-
+import { useRouter } from 'next/navigation';
 export default function CreateForm({
    userData
 }: {
@@ -16,19 +16,23 @@ export default function CreateForm({
       authour: "",
    })
 
-   const [buttontxt, setButtonTxt] = useState("Send Email");
-   const [disabled, setDisabled] = useState(false);
+   const [errorMessage, setErrorMessage] = useState<string>("")
+   const [buttontxt, setButtonTxt] = useState<string>("create quote");
+   const router = useRouter()
+   const [disabled, setDisabled] = useState<boolean>(false);
+   
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      setButtonTxt("Sending...");
-      setDisabled(true)
       e.preventDefault()
+      setButtonTxt("creating quote...");
+      setDisabled(true)
       try {
          const request = await axios.post('/api/quote', { quote, userData })
-         setButtonTxt("Sent!");
+         setButtonTxt("created!");
+         router.push("/")
       }
-      catch (error) {
-         console.log(error)
-         setButtonTxt("An error occurred.");
+      catch (error: any) {
+         setErrorMessage(error.response.data.error);
+         setButtonTxt("create quote");
       }
       setDisabled(false)
    }
@@ -36,12 +40,14 @@ export default function CreateForm({
       setQuote({ ...quote, [event.target.name]: event.target.value });
    }
    return <>
-      <form className='flex flex-col w-full'>
-         <fieldset className='flex flex-col w-full'>
+      <form className='flex flex-col w-full p-8 pt-4 md:pt-0 md:p-0'>
+         <fieldset className='flex flex-col gap-2 w-full'>
             <Input label type="text" required name="quote" placeholder="quote" value={quote.quote} onChange={handleChange} />
-            <Input label type="text" required name="authour" placeholder="authour" value={quote.authour} onChange={handleChange} />
-            <Button type="submit" onClick={handleSubmit} disabled={disabled}><p>create quote</p></Button>
+            <Input label type="text" name="authour" placeholder="authour" value={quote.authour} onChange={handleChange} />
+            <Button type="submit" onClick={handleSubmit} disabled={disabled} className="mt-2"><p>{buttontxt}</p></Button>
+
          </fieldset>
       </form>
+      {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
    </>
 }

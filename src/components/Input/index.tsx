@@ -5,7 +5,9 @@ export default function Input({
    onChange,
    name,
    label,
-   required
+   required,
+   input = true,
+   rows = 5
 }: {
    type: string
    value?: string
@@ -14,9 +16,14 @@ export default function Input({
    name: string
    label?: boolean
    required?: boolean
+   input?: boolean
+   rows?: number
 }) {
    return <>
-   {label && <label className="text-gray-700 text-sm">{name}</label>}
-   <input className="p-2 border-2 border-gray-300 rounded-md" name={name} required={required} type={type} value={value} placeholder={placeholder} onChange={onChange} />
+      <div className="flex flex-col gap-1">
+         {label && <label className="text-gray-700 text-sm">enter {name}{required && <span className="text-red-500 font-bold"> *</span>}</label>}
+         {input ? <input className="p-2 border-2 border-gray-300 rounded-md" name={name} required={required} type={type} value={value} placeholder={placeholder} onChange={onChange} />
+            : <textarea className="p-2 border-2 border-gray-300 rounded-md" name={name} rows={rows} required={required} value={value} placeholder={placeholder} onChange={onChange} />}
+      </div>
    </>
 } 
