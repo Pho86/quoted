@@ -1,14 +1,16 @@
 "use client"
 
-import { useContext, useEffect } from "react"
-import { AuthContext } from "@/context/AuthContext"
+import { useEffect } from "react"
+import { useAuthContext } from "@/context/AuthContext"
 import { useRouter } from 'next/navigation';
 
 import QuotationAnimation from "../../lottie/quotation.json"
 import Lottie from "lottie-react";
 
 export default function Profile() {
-   const { user } = useContext(AuthContext)
+   
+   // @ts-ignore
+   const { user } = useAuthContext();
    const router = useRouter()
    
    useEffect(()=> {

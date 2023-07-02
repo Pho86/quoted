@@ -40,6 +40,7 @@ export default function EditProfileForm({
       try {
          const request = await axios.put(`/api/profile/${userID}`, { profile, auth },
          )
+         // @ts-ignore
          await updateProfile(auth.currentUser, {
             displayName: profile.username,
             photoURL: profile.avatar

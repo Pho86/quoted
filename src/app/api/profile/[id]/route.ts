@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { getDoc } from "firebase/firestore";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../../../../../firebase/firebase.config";
-import { getAuth, updateProfile } from "firebase/auth";
 
 export async function GET(req: any, res: any) {
    let userdata;

@@ -43,7 +43,7 @@ export default function SignInForm() {
             <fieldset className='flex flex-col w-full'>
                <Input label type="email" required name="email" placeholder="email" value={signup.email} onChange={handleChange} />
                <Input label type="password" required name="password" placeholder="password" value={signup.password} onChange={handleChange} />
-               <Button type="submit" onClick={handleSubmit} disabled={disabled}><p>Sign In</p></Button>
+               <Button type="submit" onClick={handleSubmit} className="my-4" disabled={disabled}><p>Sign In</p></Button>
             </fieldset>
          </form>
       </motion.div>

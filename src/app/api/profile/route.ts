@@ -1,11 +1,10 @@
 import { NextResponse } from 'next/server'
 import { auth, db } from '../../../../firebase/firebase.config'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, updateProfile, signOut } from 'firebase/auth'
 import { setDoc, doc, Timestamp, getDoc } from 'firebase/firestore'
 
-export async function POST(req: any) {
-  const res = req
-  const data = await res.json()
+export async function POST(req: any, res: any) {
+  const data = await req.json()
   const userdata = data.signup
   if (userdata.email && userdata.password) {
     const userCred = await createUserWithEmailAndPassword(auth, userdata.email, userdata.password);
@@ -17,7 +16,6 @@ export async function POST(req: any) {
       bio: userdata.bio,
       created_on: Timestamp.fromDate(new Date())
     });
-    console.log(userCred)
     const userUpdate = await updateProfile(userCred.user, {
       displayName: userdata.username,
       photoURL: userdata.avatar
@@ -26,7 +24,6 @@ export async function POST(req: any) {
   else {
     return NextResponse.json({ error: "Missing data" }, { status: 401 })
   }
-
+  
   return NextResponse.json(userdata)
 }
-

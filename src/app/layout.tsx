@@ -1,9 +1,9 @@
 import './globals.css'
-import { Inter, Encode_Sans } from 'next/font/google'
-import { AuthContext, AuthContextProvider } from '@/context/AuthContext'
+import { Encode_Sans } from 'next/font/google'
+import { AuthContextProvider } from '@/context/AuthContext'
 import NavBar from '@/components/NavBar'
-import { useContext } from 'react'
-import Head from 'next/head'
+import { Suspense } from "react";
+import Loading from "./loading";
 const encode = Encode_Sans({ subsets: ['latin'] })
 export const metadata = {
   title: 'Quoted',
@@ -17,11 +17,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${encode.className} mb-10`} >
+      <body className={`${encode.className}`} >
         <AuthContextProvider>
-          {children}
+          <NavBar />
+          <Suspense fallback={<Loading />}>{children}</Suspense>
         </AuthContextProvider>
-        <NavBar />
       </body>
     </html>
   )

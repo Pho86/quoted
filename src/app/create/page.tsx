@@ -1,13 +1,12 @@
 "use client"
 import CreateForm from '@/components/CreateForm'
-import Image from 'next/image'
 
 import { useEffect } from 'react'
-import { AuthContext } from '@/context/AuthContext'
-import { useContext } from 'react'
+import { useAuthContext } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
-export default function Home({ }) {
-   const { user } = useContext(AuthContext)
+export default function Create({ }) {
+   // @ts-ignore
+   const { user } = useAuthContext()
    const router = useRouter()
    useEffect(() => {
       if (user === null) {

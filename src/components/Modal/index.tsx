@@ -52,11 +52,11 @@ export default function Modal({
 
                         <div className="flex items-center justify-end p-6 border-t border-solid border-slate-200 rounded-b">
                            <button
-                              className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                              className="text-rose-500 hover:bg-zinc-100 rounded-lg background-transparent font-bold px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                               type="button"
                               onClick={() => setShowModal(false)}
                            >
-                              close
+                              cancel
                            </button>
                            <Button
                               type="button"

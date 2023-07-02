@@ -1,7 +1,7 @@
 "use client"
 
-import { useEffect, useContext, useState } from 'react'
-import { AuthContext } from '@/context/AuthContext'
+import { useEffect, useState } from 'react'
+import { useAuthContext } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
 import { FaMapMarker } from 'react-icons/fa'
 import Image from 'next/image'
@@ -10,15 +10,20 @@ import QuotationAnimation from "../../../lottie/quotation.json"
 import Lottie from "lottie-react";
 import EditProfileModal from '@/components/EditProfileModal'
 import Quote from '@/components/Quote'
-
+import { auth } from '../../../../firebase/firebase.config'
+import Modal from '@/components/Modal'
+import { signOut } from "firebase/auth"
 
 type Params = {
    params: {
       user: any
    }
+   id: string
 }
-export default function Profile({ params }: { Params: Params }) {
-   const { user } = useContext(AuthContext)
+export default function Profile({ params }: { params: Params }) {
+
+   // @ts-ignore
+   const { user } = useAuthContext();
    const [userData, setUserData] = useState<any>(null)
    const [userQuotes, setUserQuotes] = useState<any>([])
    const router = useRouter()
@@ -29,7 +34,7 @@ export default function Profile({ params }: { Params: Params }) {
       try {
          const data = await axios.get(`/api/profile/${userID}`)
          setUserData(data.data)
-         const quotes = await axios.get(`/api/quote/${userID}`)
+         const quotes = await axios.get(`/api/profile/quotes/${userID}`)
          setUserQuotes(quotes.data)
          return data.data
       }
@@ -39,6 +44,15 @@ export default function Profile({ params }: { Params: Params }) {
          }, 6000);
       }
    }
+   const Signout = async () => {
+      try {
+         signOut(auth)
+         router.push('/')
+      } catch {
+         router.refresh()
+      }
+   }
+
    return (
       <main className="flex min-h-screen flex-col p-12 gap-5">
          {userData ?
@@ -50,6 +64,9 @@ export default function Profile({ params }: { Params: Params }) {
                      {user && params.id == user.uid &&
                         <>
                            <EditProfileModal userData={userData} userID={params.id} />
+                           <Modal buttonText='signout' title="signing out..." buttonClass='bg-rose-300 hover:bg-rose-500 hover:text-white' buttonClick={Signout} >
+                              <p className='p-4'>are you sure you want to sign out?</p>
+                           </Modal>
                         </>
                      }
                   </div>
@@ -59,10 +76,13 @@ export default function Profile({ params }: { Params: Params }) {
                   {user && params.id == user.uid &&
                      <>
                         <EditProfileModal userData={userData} userID={params.id} />
+                        <Modal buttonText='signout' title="signing out..." buttonClass='bg-rose-300 hover:bg-rose-500 hover:text-white' buttonClick={Signout} >
+                           <p className='p-4'>are you sure you want to sign out?</p>
+                        </Modal>
                      </>
                   }
                </div>
-               <div className='p-4 border-gray-400 border'>
+               <div className='p-4 border-gray-400 border rounded-lg'>
                   <div className='flex justify-between'>
                      <h2 className='text-xl font-bold mb-2'>About Me</h2>
                      <p className='flex items-start'><FaMapMarker />{userData.location}</p>

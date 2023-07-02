@@ -9,6 +9,7 @@ import { ref } from 'firebase/storage';
 import { storage } from '../../../firebase/firebase.config';
 import { uploadBytes, getDownloadURL } from 'firebase/storage';
 import { AnimatePresence, motion } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 
 export default function SignUpForm() {
    const [signup, setSignup] = useState({
@@ -20,17 +21,25 @@ export default function SignUpForm() {
       bio: "",
       imageType: ""
    })
-   const [buttontxt, setButtonTxt] = useState<string>("Next");
+   const [buttontxt, setButtonTxt] = useState<string>("next");
    const [errorMessage, setErrorMessage] = useState<string>("");
    const [errorMessageState, setErrorMessageState] = useState<boolean>(false)
    const [errorMessageLocation, setErrorMessageLocation] = useState<string>("")
    const [disabled, setDisabled] = useState<boolean>(false);
-   const [Avatar, setAvatar] = useState<string>("/next.svg");
+   const [Avatar, setAvatar] = useState<string>("/logo.svg");
    const [errorMessageClass, setErrorMessageClass] = useState<string>("text-red-500")
+
+   const router = useRouter()
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       if (number === 0) {
+         if (signup.username.length < 3) {
+            setErrorMessage("username needs to be above 3 characters.")
+            setErrorMessageLocation('username')
+            setErrorMessageState(true)
+            return
+         }
          var validEmail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
          if (!validEmail.test(signup.email) === true || signup.email === "") {
             setErrorMessage("you set an invalid email.")
@@ -50,26 +59,29 @@ export default function SignUpForm() {
       if (number === 1) {
          setErrorMessageState(false)
          setNumber(number + 1)
-         setButtonTxt("Submit");
+         setButtonTxt("submit");
       }
       if (number === 2) {
-         setButtonTxt("Sending...");
+         setButtonTxt("creating");
          setDisabled(true)
-         console.log(signup)
          try {
             const request = await axios.post('/api/profile', { signup },
             )
-            console.log(request)
-            setButtonTxt("Sent!");
+            setButtonTxt("created!");
+            router.push('/home')
          }
          catch (error) {
-            console.log(error)
-            setButtonTxt("Please try creating an account again with new details.");
+            console.log(error);
+            setErrorMessage("please try again with new details")
+            setErrorMessageLocation('error')
+            setErrorMessageState(true)
+            setButtonTxt("error");
+            setDisabled(false)
          }
          setDisabled(false)
       }
    }
-   
+
    const handleChange = async (event: any) => {
       if (event.target.name === "avatar") {
          setDisabled(true)
@@ -79,7 +91,7 @@ export default function SignUpForm() {
             if (event.target.files[0]) {
                setErrorMessageState(true)
                setErrorMessageClass('text-red-500')
-               setErrorMessage("Image is uploading please wait...")
+               setErrorMessage("image is uploading please wait...")
                setErrorMessageLocation('image')
                const storageRef = ref(storage, `profileImages/${event.target.files[0].name}`);
                await uploadBytes(storageRef, event.target.files[0]);
@@ -87,12 +99,12 @@ export default function SignUpForm() {
                setSignup({ ...signup, imageType: event.target.files[0].type, avatar: newProfileImageURL })
                setDisabled(false)
                setErrorMessageClass('text-green-500')
-               setErrorMessage("Image has been uploaded!")
+               setErrorMessage("image has been uploaded!")
             }
          }
          catch (error) {
             setDisabled(false)
-            setErrorMessage("Failed to select an image, or the image is too large (under 20mbs)")
+            setErrorMessage("failed to select an image, or the image is too large (under 20mbs)")
          }
       }
       else {
@@ -103,18 +115,18 @@ export default function SignUpForm() {
    const [number, setNumber] = useState<number>(0);
    const handleBack = () => {
       setErrorMessageState(false)
-      setButtonTxt("Next")
+      setButtonTxt("next")
       setNumber(number - 1)
    }
-   return <>
 
+   return <>
       <form className='flex flex-col w-full'>
          <fieldset className='flex flex-col w-full'>
-            <h2 className='font-bold'>Sign Up</h2>
             <AnimatePresence>
                {number === 0 ? <>
-                  <motion.div className='' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                  <motion.div className='flex flex-col w-full gap-2' initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} exit={{ opacity: 0 }} >
                      <Input label type="text" required name="username" placeholder="username" value={signup.username} onChange={handleChange} />
+                     {errorMessageState && errorMessageLocation === "username" && <p className='text-red-500'>{errorMessage}</p>}
                      <Input label type="email" required name="email" placeholder="email" value={signup.email} onChange={handleChange} />
                      {errorMessageState && errorMessageLocation === "email" && <p className='text-red-500'>{errorMessage}</p>}
                      <Input label type="password" required name="password" placeholder="password" value={signup.password} onChange={handleChange} />
@@ -123,34 +135,32 @@ export default function SignUpForm() {
                </>
                   :
                   number === 1 ?
-                     <>
-                        <motion.div className='' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-                           <Input label type="text" name="location" placeholder="location" value={signup.location} onChange={handleChange} />
-                           <Input label type="text" name="bio" input={false} placeholder="bio" value={signup.bio} onChange={handleChange} />
+                     <motion.div className='flex flex-col w-full gap-2' initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                        <Input label type="text" name="location" placeholder="location" value={signup.location} onChange={handleChange} />
+                        <Input label type="text" name="bio" input={false} placeholder="bio" value={signup.bio} onChange={handleChange} />
+                     </motion.div>
 
-                        </motion.div>
-                     </>
                      :
                      <>
-                        <motion.div className='' initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                        <motion.div className='flex flex-col w-full gap-2' initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} exit={{ opacity: 0 }}>
                            <div className='flex items-end'>
-                              <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-52 h-52 rounded-full" alt="your image" />
+                              <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-52 h-52 rounded-full hidden md:flex" alt="your image" />
                               <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-36 h-36 rounded-full" alt="your image" />
-                              <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-16 h-16 rounded-full" alt="your image" />
+                              <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-16 h-16 rounded-full hidden md:flex" alt="your image" />
                            </div>
                            <input type="file" name="avatar" accept="image/png, image/gif, image/jpeg" onChange={handleChange} />
                            {errorMessageState && errorMessageLocation === "image" && <p className={errorMessageClass}>{errorMessage}</p>}
                         </motion.div>
+                        {errorMessageState && errorMessageLocation === "error" && <p className={errorMessageClass}>{errorMessage}</p>}
                      </>
                }
             </AnimatePresence>
-            <div className='grid grid-cols-4 w-full justify-center gap-5 py-4' dir="rtl">
-               {number != 0 && <Button type="button" onClick={handleBack} disabled={disabled} className="order-4"><p>back</p></Button>}
+            <div className='grid grid-cols-3 md:grid-cols-4 w-full justify-center gap-5 py-4' dir="rtl">
                <Button type="submit" onClick={handleSubmit} disabled={disabled} ><p>{buttontxt}</p></Button>
+               {number != 0 ? <Button type="button" onClick={handleBack} disabled={disabled} className=""><p>back</p></Button> : <div></div>}
+               <div className='hidden md:block col-span-3 md:col-span-1'></div>
+               <p className='text-left whitespace-nowrap self-end font-semibold'>Step {number + 1} of 3</p>
             </div>
-
-
-            {/* <Button type="submit" onClick={handleSubmit} disabled={disabled}><p>signup</p></Button> */}
          </fieldset>
       </form>
    </>

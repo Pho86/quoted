@@ -7,9 +7,8 @@ export default function Login() {
 
   const [showSignIn, setShowSignIn] = useState(false)
   return (
-    <main className="flex min-h-screen flex-col p-12">
-      <h1 className='mt-12 font-bold'>Join quoted Today</h1>
-
+    <main className="flex min-h-screen flex-col p-8 md:p-16 md:pt-16 gap-1">
+      <h1 className='mt-0 md:mt-12 font-bold'>join quoted today!</h1>
       {showSignIn ? <>
         <SignInForm />
         <div className='flex'>
