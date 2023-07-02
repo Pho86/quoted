@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${encode.className}`} >
+      <body className={`${encode.className} mb-20 md:my-0` } >
         <AuthContextProvider>
           <NavBar />
           <Suspense fallback={<Loading />}>{children}</Suspense>

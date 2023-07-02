@@ -35,7 +35,7 @@ export default function EditPage({ params }: { params: Params }) {
    return (
       <>
          {quoteData ?
-            <main className="flex min-h-screen flex-col p-0 md:p-16 md:pt-16 pt-0">
+            <main className="flex min-h-screen flex-col p-0 md:p-24 md:pt-16 pt-0">
                <div className='w-full text-center p-4 border-b border-black'>
                   <h1 className='font-bold'>edit your quote</h1>
                </div>

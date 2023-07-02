@@ -1,29 +1,41 @@
 "use client"
 import Image from 'next/image'
-import SignUpForm from '@/components/SignupForm'
-import { useEffect, useState, useContext } from 'react'
-import axios from 'axios'
-import Quote from '@/components/Quote'
+import { useEffect, useContext } from 'react'
 import { AuthContext } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
-export default function Home() {
-   
-// @ts-ignore
+import Button from '@/components/Button'
+import Link from 'next/link'
+export default function LandingPage() {
+   // @ts-ignore
    const { user } = useContext(AuthContext)
    const router = useRouter()
 
-   useEffect(()=> {
-      if (user === null) {
-         router.push('/login')
+   useEffect(() => {
+      if (user != null) {
+         // router.push(`/home`)
       } else {
-         router.push(`/home`)
-      }}
-   , [router, user])
+      }
+   }
+      , [router, user])
 
    return (
-      <main className="flex min-h-screen flex-col px-0 lg:px-16  md:py-12 mt-0 md:my-5">
-         <section className='flex flex-col gap-2 px-8 mt-8 md:mt-16'>
-            
+      <main className="flex h-screen flex-col items-center justify-center z-[500]">
+         <section className='flex flex-col gap-5 px-8 md:px-0 w-full justify-center items-center'>
+            <Image src="/logo.svg" width={250} height={250} className="" alt="quoted logo" />
+            <h1 className='text-4xl font-bold text-center'>welcome to quoted!</h1>
+            <div className='flex flex-col w-full md:w-1/3'>
+               <Link href="/login">
+                  <Button><p>sign in</p></Button>
+               </Link>
+               <div className="flex items-center py-4">
+                  <div className="flex-grow h-px bg-gray-400"></div>
+                  <span className="flex-shrink text-xl text-gray-500 px-4 italic font-light">or</span>
+                  <div className="flex-grow h-px bg-gray-400"></div>
+               </div>
+               <Link href="/login">
+                  <Button><p>sign up</p></Button>
+               </Link>
+            </div>
          </section>
       </main>
    )

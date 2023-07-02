@@ -14,23 +14,23 @@ export default function SignInForm() {
       password: "",
 
    })
-   const [buttontxt, setButtonTxt] = useState<string>("Send Email");
+   const [buttontxt, setButtonTxt] = useState<string>("sign in");
 
    const [disabled, setDisabled] = useState<boolean>(false);
    const router = useRouter();
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      setButtonTxt("Sending...");
+      setButtonTxt("signing in")
       setDisabled(true)
       e.preventDefault()
       console.log(signup)
       try {
          signInWithEmailAndPassword(auth, signup.email, signup.password);
-         setButtonTxt("Sent!");
+         setButtonTxt("signed in");
          router.push("/")
       }
       catch (error) {
          console.log(error)
-         setButtonTxt("An error occurred.");
+         setButtonTxt("error.");
       }
       setDisabled(false)
    }
@@ -43,7 +43,7 @@ export default function SignInForm() {
             <fieldset className='flex flex-col w-full'>
                <Input label type="email" required name="email" placeholder="email" value={signup.email} onChange={handleChange} />
                <Input label type="password" required name="password" placeholder="password" value={signup.password} onChange={handleChange} />
-               <Button type="submit" onClick={handleSubmit} className="my-4" disabled={disabled}><p>Sign In</p></Button>
+               <Button type="submit" onClick={handleSubmit} className="my-4" disabled={disabled}><p>{buttontxt}</p></Button>
             </fieldset>
          </form>
       </motion.div>

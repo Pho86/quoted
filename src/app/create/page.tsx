@@ -14,7 +14,7 @@ export default function Create({ }) {
       }
    }, [])
    return (
-      <main className="flex min-h-screen flex-col p-0 md:p-16 md:pt-16 pt-0">
+      <main className="flex min-h-screen flex-col p-0 md:p-24 md:pt-16 pt-0">
          <div className='w-full text-center p-4 border-b border-black'>
             <h1 className='font-bold'>create a quote</h1>
          </div>

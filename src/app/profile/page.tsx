@@ -8,7 +8,7 @@ import QuotationAnimation from "../../lottie/quotation.json"
 import Lottie from "lottie-react";
 
 export default function Profile() {
-   
+
    // @ts-ignore
    const { user } = useAuthContext();
    const router = useRouter()
@@ -21,7 +21,7 @@ export default function Profile() {
       }}
    , [router, user])
   return (
-    <main className="grid place-items-center w-full h-screen">
+    <main className="grid place-items-center w-full h-screen overflow-hidden max-h-screen">
       <Lottie animationData={QuotationAnimation} style={{ width: 300, height: 300 }} className="md:hidden"/>
       <Lottie animationData={QuotationAnimation} style={{ width: 450, height: 450 }} className="md:block hidden"/>
     </main>

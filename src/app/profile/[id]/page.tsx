@@ -54,7 +54,7 @@ export default function Profile({ params }: { params: Params }) {
    }
 
    return (
-      <main className="flex min-h-screen flex-col p-12 gap-5">
+      <main className="flex min-h-screen flex-col p-12 md:p-24 pt-12 gap-5">
          {userData ?
             <>
                <div className='flex gap-5 mt-0 md:mt-12'>
