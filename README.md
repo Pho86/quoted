@@ -1,3 +1,5 @@
+* Quoted Coding Challenge
+
 **Assignment** - Create a web app called **Quoted**. The features of **Quoted** include:
 
 - Users can create an account for themselves

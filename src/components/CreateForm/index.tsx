@@ -28,7 +28,7 @@ export default function CreateForm({
       try {
          const request = await axios.post('/api/quote', { quote, userData })
          setButtonTxt("created!");
-         router.push("/")
+         router.push("/home")
       }
       catch (error: any) {
          setErrorMessage(error.response.data.error);

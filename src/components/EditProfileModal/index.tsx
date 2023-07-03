@@ -8,6 +8,7 @@ import { storage, auth } from '../../../firebase/firebase.config';
 import { uploadBytes, getDownloadURL, } from 'firebase/storage';
 import Modal from '../Modal';
 import { updateProfile } from 'firebase/auth';
+import { useRouter } from 'next/navigation';
 
 export default function EditProfileForm({
    userID,
@@ -29,8 +30,9 @@ export default function EditProfileForm({
    const [errorMessageState, setErrorMessageState] = useState<boolean>(false)
    const [errorMessageLocation, setErrorMessageLocation] = useState<string>("")
    const [disabled, setDisabled] = useState<boolean>(false);
-   const [Avatar, setAvatar] = useState<string>(userData.avatar);
+   const [Avatar, setAvatar] = useState<string>(userData.avatar ? userData.avatar: "https://firebasestorage.googleapis.com/v0/b/quoted-5a75d.appspot.com/o/profileImages%2FQUOTEDLOGO.png?alt=media&token=77ddde79-fa22-4726-8c26-928f1cbea25a");
    const [errorMessageClass, setErrorMessageClass] = useState<string>("text-red-500")
+   const router = useRouter()
 
 
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -46,10 +48,11 @@ export default function EditProfileForm({
             photoURL: profile.avatar
          })
          setButtonTxt("changed!");
+         router.refresh()
       }
       catch (error) {
          console.log(error)
-         setButtonTxt("Please try creating an account again with new details.");
+         setButtonTxt("error");
       }
       setDisabled(false)
    }
@@ -65,7 +68,7 @@ export default function EditProfileForm({
                setErrorMessageClass('text-red-500')
                setErrorMessage("Image is uploading please wait...")
                setErrorMessageLocation('image')
-               const storageRef = ref(storage, `profileImages/${event.target.files[0].name}`);
+               const storageRef = ref(storage, `profileImages/${userID}`);
                await uploadBytes(storageRef, event.target.files[0]);
                newProfileImageURL = await getDownloadURL(storageRef);
                setSignup({ ...profile, imageType: event.target.files[0].type, avatar: newProfileImageURL })

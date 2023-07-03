@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from 'next/server'
-import { auth, db, storage } from '../../../../firebase/firebase.config'
-import { addDoc, collection, Timestamp, updateDoc, doc, query, orderBy, getDocs, deleteDoc} from 'firebase/firestore'
+import { db,  } from '../../../../firebase/firebase.config'
+import { addDoc, collection, Timestamp, doc, query, orderBy, getDocs, deleteDoc} from 'firebase/firestore'
 
 export async function GET(req: any, res: any) {
    let quotes = [] as any;

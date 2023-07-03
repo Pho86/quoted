@@ -9,11 +9,9 @@ export default function LandingPage() {
    // @ts-ignore
    const { user } = useContext(AuthContext)
    const router = useRouter()
-
    useEffect(() => {
       if (user != null) {
-         // router.push(`/home`)
-      } else {
+         router.push(`/home`)
       }
    }
       , [router, user])
@@ -32,8 +30,8 @@ export default function LandingPage() {
                   <span className="flex-shrink text-xl text-gray-500 px-4 italic font-light">or</span>
                   <div className="flex-grow h-px bg-gray-400"></div>
                </div>
-               <Link href="/login">
-                  <Button><p>sign up</p></Button>
+               <Link href="/login#register">
+                  <Button className='bg-black text-white hover:bg-zinc-300'><p>sign up</p></Button>
                </Link>
             </div>
          </section>

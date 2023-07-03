@@ -1,7 +1,6 @@
-import { query, collection, where, orderBy, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { query, collection, where, orderBy, getDocs } from "firebase/firestore";
 import { db } from "../../../../../../firebase/firebase.config";
 import { NextResponse } from "next/server";
-import { auth } from "../../../../../../firebase/firebase.config";
 
 export async function GET(req: any, res: any) {
    let quotes = [] as any;

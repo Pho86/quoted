@@ -3,12 +3,22 @@
 import SignInForm from '@/components/SignInForm'
 import SignUpForm from '@/components/SignupForm'
 import { useState } from 'react'
-export default function Login() {
+import Image from "next/image"
 
-  const [showSignIn, setShowSignIn] = useState(false)
+type Params = {
+  params: {
+     user: any
+  }
+  id: string
+}
+
+export default function Login({ params }: { params: Params }) {
+  console.log(params)
+  const [showSignIn, setShowSignIn] = useState(true)
   return (
-    <main className="flex min-h-screen flex-col p-8 md:p-16 md:pt-16 gap-1">
-      <h1 className='mt-0 md:mt-12 font-bold'>join quoted today!</h1>
+    <main className="flex min-h-screen flex-col justify-center px-8 md:px-24 md:py-12 gap-2">
+      <Image src="/logo.svg" width={200} height={200} className="self-center" alt="quoted logo" />
+      <h1 className='mt-4 md:mt-0 text-2xl font-bold'>join quoted today!</h1>
       {showSignIn ? <>
         <SignInForm />
         <div className='flex'>

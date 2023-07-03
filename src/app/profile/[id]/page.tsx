@@ -13,6 +13,7 @@ import Quote from '@/components/Quote'
 import { auth } from '../../../../firebase/firebase.config'
 import Modal from '@/components/Modal'
 import { signOut } from "firebase/auth"
+import NavBar from '@/components/NavBar'
 
 type Params = {
    params: {
@@ -40,13 +41,13 @@ export default function Profile({ params }: { params: Params }) {
       }
       catch (err) {
          setTimeout(() => {
-            // router.push('/')
+            router.push('/')
          }, 6000);
       }
    }
    const Signout = async () => {
       try {
-         signOut(auth)
+         await signOut(auth)
          router.push('/')
       } catch {
          router.refresh()
@@ -54,13 +55,27 @@ export default function Profile({ params }: { params: Params }) {
    }
 
    return (
-      <main className="flex min-h-screen flex-col p-12 md:p-24 pt-12 gap-5">
+      <>
          {userData ?
             <>
-               <div className='flex gap-5 mt-0 md:mt-12'>
-                  <Image src={userData.avatar != "" ? userData.avatar : "/logo.svg"} width={250} height={250} className="w-72 h-72 rounded-full" alt="profile picture" />
-                  <div className='flex-col gap-3 md:flex hidden'>
-                     <h1 className="text-2xl font-bold ">@{userData.username}</h1>
+               <NavBar active={2}/>
+               <main className="flex min-h-screen flex-col p-12 md:p-24 pt-8 md:pt-8 gap-5">
+                  <div className='flex gap-5 mt-0 md:mt-12'>
+                     <Image src={userData.avatar != "" ? userData.avatar : "/logo.svg"} width={250} height={250} className="w-72 h-72 rounded-full" alt="profile picture" />
+                     <div className='flex-col gap-3 md:flex hidden'>
+                        <h1 className="text-2xl font-bold ">@{userData.username}</h1>
+                        {user && params.id == user.uid &&
+                           <>
+                              <EditProfileModal userData={userData} userID={params.id} />
+                              <Modal buttonText='signout' title="signing out..." buttonClass='bg-rose-300 hover:bg-rose-500 hover:text-white' buttonClick={Signout} >
+                                 <p className='p-4'>are you sure you want to sign out?</p>
+                              </Modal>
+                           </>
+                        }
+                     </div>
+                  </div>
+                  <div className='flex flex-col gap-3 md:hidden'>
+                     <h1 className="text-2xl font-bold">@{userData.username}</h1>
                      {user && params.id == user.uid &&
                         <>
                            <EditProfileModal userData={userData} userID={params.id} />
@@ -70,41 +85,32 @@ export default function Profile({ params }: { params: Params }) {
                         </>
                      }
                   </div>
-               </div>
-               <div className='flex flex-col gap-3 md:hidden'>
-                  <h1 className="text-2xl font-bold">@{userData.username}</h1>
-                  {user && params.id == user.uid &&
-                     <>
-                        <EditProfileModal userData={userData} userID={params.id} />
-                        <Modal buttonText='signout' title="signing out..." buttonClass='bg-rose-300 hover:bg-rose-500 hover:text-white' buttonClick={Signout} >
-                           <p className='p-4'>are you sure you want to sign out?</p>
-                        </Modal>
-                     </>
-                  }
-               </div>
-               <div className='p-4 border-gray-400 border rounded-lg'>
-                  <div className='flex justify-between'>
-                     <h2 className='text-xl font-bold mb-2'>About Me</h2>
-                     <p className='flex items-start'><FaMapMarker />{userData.location}</p>
+                  <div className='p-4 border-gray-400 border rounded-lg'>
+                     <div className='flex justify-between'>
+                        <h2 className='text-xl font-bold mb-2'>About Me</h2>
+                        <p className='flex items-start gap-1'><FaMapMarker color={'#FDA4AF'}/>{userData.location}</p>
+                     </div>
+                     <blockquote className=''>{userData.bio}</blockquote>
                   </div>
-                  <blockquote className=''>{userData.bio}</blockquote>
-               </div>
-               {userQuotes.length > 0 ?
-                  userQuotes.map((quote: any, index: number) => {
-                     return <Quote key={quote.id} quote={quote} user={user} />
-                  })
-                  : <>
-                     <p>this user has no quotes </p>
-                  </>}
+                  {userQuotes.length > 0 ?
+                     userQuotes.map((quote: any, index: number) => {
+                        return <Quote key={quote.id} quote={quote} user={user} />
+                     })
+                     : <>
+                        <p>this user has no quotes </p>
+                     </>}
+               </main>
             </>
             :
             <>
-               <div className='grid place-items-center w-full h-screen'>
-                  <Lottie animationData={QuotationAnimation} style={{ width: 300, height: 300 }} className="md:hidden" />
-                  <Lottie animationData={QuotationAnimation} style={{ width: 450, height: 450 }} className="md:block hidden" />
-               </div>
+               <>
+                  <div className='grid place-items-center w-full h-screen'>
+                     <Lottie animationData={QuotationAnimation} style={{ width: 300, height: 300 }} className="md:hidden" />
+                     <Lottie animationData={QuotationAnimation} style={{ width: 450, height: 450 }} className="md:block hidden" />
+                  </div>
+               </>
             </>
          }
-      </main>
+      </>
    )
 }
