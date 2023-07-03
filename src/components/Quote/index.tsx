@@ -85,7 +85,7 @@ export default function Quote({
             {active ? <motion.div className='p-2 bg-zinc-50 transition-all border w-full rounded-lg' exit={{ opacity: 0, backgroundColor: ['hsl(0,0%,98%)', 'hsl(352.6,95.7%,81.8%)'] }} transition={{ duration: 0.3, opacity: { duration: 1.2 } }}>
                <div className='flex w-full gap-2'>
                   <Link href={`/profile/${quote.uid}`} className="grid">
-                     <Image src={quote.avatar} alt="avatar" width={100} height={100} style={{ objectFit: "fill" }} className="w-[4.25rem] shrink-0 h-16 aspect-square hidden md:block rounded-full hover:brightness-75 transition-all" />
+                     <Image src={quote.avatar} alt="avatar" width={100} height={100} style={{ objectFit: "fill" }} className="w-[4.25rem] h-16 shrink-0 aspect-square hidden md:block rounded-full hover:brightness-75 transition-all" />
                      <Image src={quote.avatar} alt="avatar" width={100} height={100} style={{ objectFit: "fill" }} className="w-16 h-14 shrink-0 aspect-square md:hidden rounded-full hover:brightness-75 transition-all" />
                   </Link>
                   <div className='flex gap-5 justify-between w-full'>

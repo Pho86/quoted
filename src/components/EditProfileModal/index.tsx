@@ -95,9 +95,9 @@ export default function EditProfileForm({
          <form className='flex flex-col w-full p-10'>
             <fieldset className='flex flex-col w-full gap-2'>
                <div className='flex items-end'>
-                  <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-52 h-52 rounded-full hidden md:flex" alt="your image large version" />
-                  <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-36 h-36 rounded-full " alt="your image medium version" />
-                  <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-16 h-16 rounded-full hidden md:flex" alt="your image small version" />
+                  <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-52 h-52 aspect-square shrink-0 rounded-full hidden md:flex" alt="your image large version" />
+                  <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-36 h-36 aspect-square shrink-0 rounded-full " alt="your image medium version" />
+                  <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-16 h-16 aspect-square shrink-0 rounded-full hidden md:flex" alt="your image small version" />
                </div>
                <input type="file" name="avatar" accept="image/png, image/gif, image/jpeg" onChange={handleChange} />
                {errorMessageState && errorMessageLocation === "image" && <p className={errorMessageClass}>{errorMessage}</p>}

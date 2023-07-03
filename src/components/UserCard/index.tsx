@@ -22,7 +22,7 @@ export default function UserCard({ user, userData }: { user: any, userData: any 
    return <div className="p-2 bg-zinc-50 transition-all border w-full rounded-lg">
       <div className="flex gap-2">
          <Link href={`/profile/${user.uid}`} className="shrink-0">
-            <Image src={user.photoURL != "" ? user.photoURL ? user.photoURL === null ? "/logo.svg" : user.photoURL : "/logo.svg" : "/logo.svg"} width={250} height={250} className="w-24 h-24 md:h-36 md:w-36 rounded-full aspect-square hover:-translate-y-1 hover:brightness-[80%] hover:drop-shadow-md transition-all" alt="profile picture" />
+            <Image src={user.photoURL != "" ? user.photoURL ? user.photoURL === null ? "/logo.svg" : user.photoURL : "/logo.svg" : "/logo.svg"} width={250} height={250} className="w-24 h-24 aspect-square shrink-0 md:h-36 md:w-36 rounded-full  hover:-translate-y-1 hover:brightness-[80%] hover:drop-shadow-md transition-all" alt="profile picture" />
          </Link>
          <div className="flex-col">
             <Link href={`/profile/${user.uid}`}>

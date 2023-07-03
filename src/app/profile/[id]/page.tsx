@@ -61,7 +61,7 @@ export default function Profile({ params }: { params: Params }) {
                <NavBar active={2}/>
                <main className="flex min-h-screen flex-col p-6 pb-12 md:p-24 pt-8 md:pt-8 gap-5">
                   <div className='flex gap-5 mt-0 md:mt-12'>
-                     <Image src={userData.avatar != "" ? userData.avatar : "/logo.svg"} width={250} height={250} className="w-72 h-72 rounded-full" alt="profile picture" />
+                     <Image src={userData.avatar != "" ? userData.avatar : "/logo.svg"} width={250} height={250} className="w-72 aspect-square shrink-0 h-72 rounded-full" alt="profile picture" />
                      <div className='flex-col gap-3 md:flex hidden'>
                         <h1 className="text-2xl font-bold ">@{userData.username}</h1>
                         {user && params.id == user.uid &&

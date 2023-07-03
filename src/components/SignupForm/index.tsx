@@ -149,9 +149,9 @@ export default function SignUpForm() {
                      <>
                         <motion.div className='flex flex-col w-full gap-2' initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} exit={{ opacity: 0 }}>
                            <div className='flex items-end'>
-                              <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-52 h-52 rounded-full hidden md:flex" alt="your image" />
-                              <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-36 h-36 rounded-full" alt="your image" />
-                              <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-16 h-16 rounded-full hidden md:flex" alt="your image" />
+                              <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-52 h-52 aspect-square shrink-0 rounded-full hidden md:flex" alt="your image" />
+                              <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-36 h-36 aspect-square shrink-0 rounded-full" alt="your image" />
+                              <Image src={Avatar} width={250} height={250} style={{ objectFit: "fill" }} className="w-16 h-16 aspect-square shrink-0 rounded-full hidden md:flex" alt="your image" />
                            </div>
                            <input type="file" name="avatar" accept="image/png, image/gif, image/jpeg" onChange={handleChange} />
                            {errorMessageState && errorMessageLocation === "image" && <p className={errorMessageClass}>{errorMessage}</p>}
