@@ -46,7 +46,7 @@ export default function NavBar({
          <nav className="fixed bottom-0 w-screen text-black bg-white border-t-2 border-zinc-500 grid grid-cols-3 justify-between items-center z-[1000] md:hidden">
             {active === 0 ? <Link href={"/home"} className="transition-all bg-zinc-300 p-4 w-full grid place-items-center">
                <AiFillHome size={30} />
-               <p>home</p>
+               <p className="font-bold">◍</p>
             </Link>
                :
                <Link href={"/home"} className="transition-all hover:bg-zinc-100 p-4 w-full grid place-items-center">
@@ -57,7 +57,7 @@ export default function NavBar({
 
             {active === 1 ? <Link href={"/create"} className="transition-all bg-zinc-300 p-4 w-full grid place-items-center">
                <AiFillPlusCircle size={30} />
-               <p>create</p>
+               <p className="font-bold">◍</p>
             </Link>
                :
                <Link href={"/create"} className="transition-all hover:bg-zinc-100 p-4 w-full grid place-items-center">
