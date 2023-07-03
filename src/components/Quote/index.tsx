@@ -1,10 +1,8 @@
-import { Timestamp } from 'firebase/firestore'
 import Image from 'next/image'
 import { FaEllipsisV, FaHeart } from 'react-icons/fa'
 import Link from 'next/link'
 import { useState } from 'react'
 import axios from 'axios'
-import Router from 'next/router'
 import { useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
 
@@ -33,12 +31,9 @@ interface userInterface {
 export default function Quote({
    quote,
    user,
-   link = false
-
 }: {
    quote: quoteInterface
    user: userInterface
-   link?: boolean
 }) {
    const [openMenu, setOpenMenu] = useState(false)
    const router = useRouter()
@@ -56,7 +51,9 @@ export default function Quote({
       router.push(`/edit/${quote.id}`)
    }
 
-   const formattedTimestamp =
+   let formattedTimestamp;
+   if(quote.created_on) {
+      formattedTimestamp =
       new Date(quote.created_on.seconds * 1000 + quote.created_on.nanoseconds / 1000000).toLocaleDateString("en-US", {
          month: "2-digit",
          day: "2-digit",
@@ -67,6 +64,7 @@ export default function Quote({
          hour: "2-digit",
          minute: "2-digit",
       });
+   }
    let updatedTimestamp;
    if (quote.updated_on) {
       updatedTimestamp =
@@ -84,7 +82,7 @@ export default function Quote({
    return (
       <>
          <AnimatePresence>
-            {active ? <motion.div className='p-2 bg-zinc-50 transition-all border w-full rounded-lg' exit={{ opacity: 0, backgroundColor: ['hsl(0,0%,98%)', 'hsl(352.6,95.7%,81.8%)'] }} transition={{ duration: 0.3, opacity: { duration: 1.5 } }}>
+            {active ? <motion.div className='p-2 bg-zinc-50 transition-all border w-full rounded-lg' exit={{ opacity: 0, backgroundColor: ['hsl(0,0%,98%)', 'hsl(352.6,95.7%,81.8%)'] }} transition={{ duration: 0.3, opacity: { duration: 1.2 } }}>
                <div className='flex w-full gap-2'>
                   <Link href={`/profile/${quote.uid}`} className="">
                      <Image src={quote.avatar} alt="avatar" width={100} height={100} style={{ objectFit: "fill" }} className="w-16 h-16 hidden md:block rounded-full hover:brightness-75 transition-all" />

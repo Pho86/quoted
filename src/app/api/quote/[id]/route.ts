@@ -1,5 +1,5 @@
 import { db } from "../../../../../firebase/firebase.config";
-import { doc, getDoc, deleteDoc, updateDoc, Timestamp } from "firebase/firestore";
+import { doc, getDoc, deleteDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import { NextResponse } from 'next/server'
 
 export async function GET(req: any, res: any) {
@@ -40,7 +40,7 @@ export async function PATCH(req: any, res: any) {
       await updateDoc(docRef, {
          quote: quote.quote,
          authour: quote.authour,
-         updated_on: Timestamp.fromDate(new Date()),
+         updated_on: serverTimestamp(),
          avatar: userData.photoURL,
          name: userData.displayName,
       });

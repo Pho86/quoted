@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth, db } from '../../../../firebase/firebase.config'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import { setDoc, doc, Timestamp } from 'firebase/firestore'
+import { setDoc, doc, Timestamp, serverTimestamp } from 'firebase/firestore'
 
 export async function POST(req: any, res: any) {
   const data = await req.json()
@@ -14,7 +14,7 @@ export async function POST(req: any, res: any) {
       location: userdata.location,
       avatar: userdata.avatar,
       bio: userdata.bio,
-      created_on: Timestamp.fromDate(new Date()),
+      created_on: serverTimestamp(),
       hideProfile: userdata.hideProfile,
     });
     const userUpdate = await updateProfile(userCred.user, {
