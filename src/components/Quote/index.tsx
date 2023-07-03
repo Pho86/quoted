@@ -84,9 +84,9 @@ export default function Quote({
          <AnimatePresence>
             {active ? <motion.div className='p-2 bg-zinc-50 transition-all border w-full rounded-lg' exit={{ opacity: 0, backgroundColor: ['hsl(0,0%,98%)', 'hsl(352.6,95.7%,81.8%)'] }} transition={{ duration: 0.3, opacity: { duration: 1.2 } }}>
                <div className='flex w-full gap-2'>
-                  <Link href={`/profile/${quote.uid}`} className="">
-                     <Image src={quote.avatar} alt="avatar" width={100} height={100} style={{ objectFit: "fill" }} className="w-16 h-16 hidden md:block rounded-full hover:brightness-75 transition-all" />
-                     <Image src={quote.avatar} alt="avatar" width={100} height={100} style={{ objectFit: "fill" }} className="w-14 h-14 md:hidden rounded-full hover:brightness-75 transition-all" />
+                  <Link href={`/profile/${quote.uid}`} className="grid">
+                     <Image src={quote.avatar} alt="avatar" width={100} height={100} style={{ objectFit: "fill" }} className="w-[4.25rem] h-16 aspect-square hidden md:block rounded-full hover:brightness-75 transition-all" />
+                     <Image src={quote.avatar} alt="avatar" width={100} height={100} style={{ objectFit: "fill" }} className="w-16 h-14 aspect-square md:hidden rounded-full hover:brightness-75 transition-all" />
                   </Link>
                   <div className='flex gap-5 justify-between w-full'>
                      <div>
@@ -96,8 +96,8 @@ export default function Quote({
                               <h2 className='font-medium text-2xl whitespace-nowrap md:hidden'>{quote.username.length > 10 ? `${quote.username.substring(0, 10)}...` : quote.username}</h2>
                            </Link>
                            <div className='flex flex-col'>
-                              <p className='text-xs whitespace-nowrap'>created: {formattedTimestamp}</p>
-                              {quote.updated_on && <p className='text-xs whitespace-nowrap'> <>updated: {updatedTimestamp}</></p>}
+                              <p className='text-xs flex whitespace-nowrap'><span className='hidden md:block'>created:&nbsp;</span>{formattedTimestamp}</p>
+                              {quote.updated_on && <p className='text-xs flex whitespace-nowrap'> <><span className='hidden md:block'>updated:&nbsp;</span>{updatedTimestamp}</></p>}
                            </div>
                         </div>
                         <div className='flex flex-col gap-3 justify-between'>

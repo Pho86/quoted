@@ -59,7 +59,7 @@ export default function Profile({ params }: { params: Params }) {
          {userData ?
             <>
                <NavBar active={2}/>
-               <main className="flex min-h-screen flex-col p-12 md:p-24 pt-8 md:pt-8 gap-5">
+               <main className="flex min-h-screen flex-col p-6 pb-12 md:p-24 pt-8 md:pt-8 gap-5">
                   <div className='flex gap-5 mt-0 md:mt-12'>
                      <Image src={userData.avatar != "" ? userData.avatar : "/logo.svg"} width={250} height={250} className="w-72 h-72 rounded-full" alt="profile picture" />
                      <div className='flex-col gap-3 md:flex hidden'>
@@ -87,7 +87,7 @@ export default function Profile({ params }: { params: Params }) {
                   </div>
                   <div className='p-4 border-gray-400 border rounded-lg'>
                      <div className='flex justify-between'>
-                        <h2 className='text-xl font-bold mb-2'>About Me</h2>
+                        <h2 className='text-xl font-bold mb-2'>about me</h2>
                         <p className='flex items-start gap-1'><FaMapMarker color={'#FDA4AF'}/>{userData.location}</p>
                      </div>
                      <blockquote className=''>{userData.bio}</blockquote>
