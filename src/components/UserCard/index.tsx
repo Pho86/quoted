@@ -2,20 +2,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { FaMapMarker } from "react-icons/fa";
 import { PiCircleFill } from "react-icons/pi"
-import {BsPencil} from "react-icons/bs"
+import { BsPencil } from "react-icons/bs"
 export default function UserCard({ user, userData }: { user: any, userData: any }) {
 
-   const formattedTimestamp =
-      new Date(userData.created_on.seconds * 1000 + userData.created_on.nanoseconds / 1000000).toLocaleDateString("en-US", {
-         month: "2-digit",
-         day: "2-digit",
-         year: "2-digit",
-      }) +
-      " " +
-      new Date(userData.created_on.seconds * 1000 + userData.created_on.nanoseconds / 1000000).toLocaleTimeString("en-US", {
-         hour: "2-digit",
-         minute: "2-digit",
-      });
+   let formattedTimestamp
+   if (userData.created_on) {
+      formattedTimestamp =
+         new Date(userData.created_on.seconds * 1000 + userData.created_on.nanoseconds / 1000000).toLocaleDateString("en-US", {
+            month: "2-digit",
+            day: "2-digit",
+            year: "2-digit",
+         }) +
+         " " +
+         new Date(userData.created_on.seconds * 1000 + userData.created_on.nanoseconds / 1000000).toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+         });
+   }
 
    return <div className="p-2 bg-zinc-50 transition-all border w-full rounded-lg">
       <div className="flex">
