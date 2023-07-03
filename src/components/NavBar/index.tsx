@@ -23,13 +23,21 @@ export default function NavBar({
                      <Image src="/logo.svg" width={25} height={25} alt="quoted logo" />
                   </Link>
                </div>
-               <Link href={"/home"} className="text-lg p-2 transition-all rounded-md hover:bg-zinc-100">
+               {active === 0 ? <Link href={"/home"} className="text-lg p-2 transition-all rounded-md bg-zinc-300">
                   <h2>Home</h2>
-               </Link>
+               </Link> :
+                  <Link href={"/home"} className="text-lg p-2 transition-all rounded-md hover:bg-zinc-100">
+                     <h2>Home</h2>
+                  </Link>
+               }
             </div>
-            <Link href="/create" className=" transition-all place-self-center p-2" >
-               <AiFillPlusCircle size={30} className="hover:-translate-y-1 transition-all" />
-            </Link>
+            {active === 0 ? <Link href="/create" className=" transition-all place-self-center p-2" >
+               <AiFillPlusCircle size={30} className="-translate-y-1 transition-all" />
+            </Link> :
+               <Link href="/create" className=" transition-all place-self-center p-2" >
+                  <AiOutlinePlusCircle size={30} className="hover:-translate-y-1 transition-all" />
+               </Link>
+            }
             {user ?
                <Link href="/profile" className="place-self-end self-center">
                   <Image src={user.photoURL ? user.photoURL : "https://firebasestorage.googleapis.com/v0/b/quoted-5a75d.appspot.com/o/profileImages%2FQUOTEDLOGO.png?alt=media&token=77ddde79-fa22-4726-8c26-928f1cbea25a"} width={35} height={35} className="w-10 h-10 group-hover:-translate-y-1 hover:brightness-[80%] hover:drop-shadow-lg transition-all rounded-full" alt="your profile image" />
