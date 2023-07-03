@@ -30,7 +30,9 @@ export default function EditForm({
       try {
          const request = await axios.patch(`/api/quote/${quoteData.id}`, { quote, userData })
          setButtonTxt("edited quote!");
-         router.push("/")
+         setTimeout(() => {
+            router.push("/home")
+         }, 1000)
       }
       catch (error: any) {
          setErrorMessage(error.response.data.error);
@@ -40,7 +42,6 @@ export default function EditForm({
    }
    const handleChange = async (event: any) => {
       setQuote({ ...quote, [event.target.name]: event.target.value });
-      console.log(quote)
    }
    return <>
       <form className='flex flex-col w-full p-8 pt-4 md:pt-0 md:p-0'>

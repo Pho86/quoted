@@ -20,7 +20,7 @@ export default function CreateForm({
    const [buttontxt, setButtonTxt] = useState<string>("create quote");
    const router = useRouter()
    const [disabled, setDisabled] = useState<boolean>(false);
-   
+
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       setButtonTxt("creating quote...");
@@ -28,7 +28,9 @@ export default function CreateForm({
       try {
          const request = await axios.post('/api/quote', { quote, userData })
          setButtonTxt("created!");
-         router.push("/home")
+         setTimeout(() => {
+            router.push("/home")
+         }, 1000)
       }
       catch (error: any) {
          setErrorMessage(error.response.data.error);

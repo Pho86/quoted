@@ -99,7 +99,7 @@ export default function Quote({
                            </Link>
                            <div className='flex flex-col'>
                               <p className='text-xs whitespace-nowrap'>created: {formattedTimestamp}</p>
-                              <p className='text-xs whitespace-nowrap'>{quote.updated_on && <>updated: {updatedTimestamp}</>}</p>
+                              {quote.updated_on && <p className='text-xs whitespace-nowrap'> <>updated: {updatedTimestamp}</></p>}
                            </div>
                         </div>
                         <div className='flex flex-col gap-3 justify-between'>
