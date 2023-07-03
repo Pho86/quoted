@@ -26,6 +26,7 @@ export async function PUT(req: any, res: any) {
          location: profile.location,
          avatar: profile.avatar,
          bio: profile.bio,
+         hideProfile: profile.hideProfile,
       });
       return NextResponse.json(profile)
    }

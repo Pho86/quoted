@@ -24,13 +24,14 @@ export default function EditProfileForm({
       avatar: userData.avatar,
       bio: userData.bio,
       imageType: userData.imageType,
+      hideProfile: userData.hideProfile
    })
    const [buttontxt, setButtonTxt] = useState<string>("change");
    const [errorMessage, setErrorMessage] = useState<string>("");
    const [errorMessageState, setErrorMessageState] = useState<boolean>(false)
    const [errorMessageLocation, setErrorMessageLocation] = useState<string>("")
    const [disabled, setDisabled] = useState<boolean>(false);
-   const [Avatar, setAvatar] = useState<string>(userData.avatar ? userData.avatar: "https://firebasestorage.googleapis.com/v0/b/quoted-5a75d.appspot.com/o/profileImages%2FQUOTEDLOGO.png?alt=media&token=77ddde79-fa22-4726-8c26-928f1cbea25a");
+   const [Avatar, setAvatar] = useState<string>(userData.avatar ? userData.avatar : "https://firebasestorage.googleapis.com/v0/b/quoted-5a75d.appspot.com/o/profileImages%2FQUOTEDLOGO.png?alt=media&token=77ddde79-fa22-4726-8c26-928f1cbea25a");
    const [errorMessageClass, setErrorMessageClass] = useState<string>("text-red-500")
    const router = useRouter()
 
@@ -82,6 +83,10 @@ export default function EditProfileForm({
             setErrorMessage("Failed to select an image, or the image is too large (under 20mbs)")
          }
       }
+      else if(event.target.name === "hideProfile"){
+         setSignup({ ...profile, [event.target.name]: event.target.checked })
+         console.log(profile)
+      }
       else {
          setSignup({ ...profile, [event.target.name]: event.target.value });
       }
@@ -100,6 +105,10 @@ export default function EditProfileForm({
                <Input label type="text" required name="username" placeholder="username" value={profile.username} onChange={handleChange} />
                <Input label type="text" name="location" placeholder="location" value={profile.location} onChange={handleChange} />
                <Input label type="text" name="bio" input={false} rows={4} placeholder="bio" value={profile.bio} onChange={handleChange} />
+               <div className='flex gap-1'>
+                  <label className='text-gray-800 text-sm'>Hide Profile</label>
+                  <input type="checkbox" checked={profile.hideProfile} name="hideProfile" onChange={handleChange} />
+               </div>
             </fieldset>
          </form>
       </Modal>

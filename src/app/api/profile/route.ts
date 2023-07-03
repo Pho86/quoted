@@ -12,9 +12,10 @@ export async function POST(req: any, res: any) {
       username: userdata.username,
       email: userdata.email,
       location: userdata.location,
-      avatar: userdata.userCred.user.uid,
+      avatar: userdata.avatar,
       bio: userdata.bio,
-      created_on: Timestamp.fromDate(new Date())
+      created_on: Timestamp.fromDate(new Date()),
+      hideProfile: userdata.hideProfile,
     });
     const userUpdate = await updateProfile(userCred.user, {
       displayName: userdata.username,

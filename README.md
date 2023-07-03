@@ -1,4 +1,4 @@
-* Quoted Coding Challenge
+# Quoted Coding Challenge
 
 **Assignment** - Create a web app called **Quoted**. The features of **Quoted** include:
 

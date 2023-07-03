@@ -19,7 +19,8 @@ export default function SignUpForm() {
       location: "",
       avatar: "",
       bio: "",
-      imageType: ""
+      imageType: "",
+      hideProfile: false,
    })
    const [buttontxt, setButtonTxt] = useState<string>("next");
    const [errorMessage, setErrorMessage] = useState<string>("");
@@ -64,6 +65,7 @@ export default function SignUpForm() {
       if (number === 2) {
          setButtonTxt("creating");
          setDisabled(true)
+         console.log(signup)
          try {
             const request = await axios.post('/api/profile', { signup },
             )
@@ -150,6 +152,10 @@ export default function SignUpForm() {
                            </div>
                            <input type="file" name="avatar" accept="image/png, image/gif, image/jpeg" onChange={handleChange} />
                            {errorMessageState && errorMessageLocation === "image" && <p className={errorMessageClass}>{errorMessage}</p>}
+                           <div className='flex gap-1'>
+                              <label className='text-gray-800 text-sm'>Hide Profile</label>
+                              <input type="checkbox" checked={signup.hideProfile} name="hideProfile" onChange={handleChange} />
+                           </div>
                         </motion.div>
                         {errorMessageState && errorMessageLocation === "error" && <p className={errorMessageClass}>{errorMessage}</p>}
                      </>
