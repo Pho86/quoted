@@ -159,7 +159,7 @@ export default function SignUpForm() {
                <Button type="submit" onClick={handleSubmit} disabled={disabled} ><p>{buttontxt}</p></Button>
                {number != 0 ? <Button type="button" onClick={handleBack} disabled={disabled} className=""><p>back</p></Button> : <div></div>}
                <div className='hidden md:block col-span-3 md:col-span-1'></div>
-               <p className='text-left whitespace-nowrap self-end font-semibold'>Step {number + 1} of 3</p>
+               <p className='text-left whitespace-nowrap self-start font-semibold'>Step {number + 1} of 3</p>
             </div>
          </fieldset>
       </form>

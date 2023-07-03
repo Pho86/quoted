@@ -22,7 +22,6 @@ export default function SignInForm() {
       setButtonTxt("signing in")
       setDisabled(true)
       e.preventDefault()
-      console.log(signup)
       try {
          signInWithEmailAndPassword(auth, signup.email, signup.password);
          setButtonTxt("signed in");
@@ -40,7 +39,7 @@ export default function SignInForm() {
    return <>
       <motion.div  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
          <form className='flex flex-col w-full'>
-            <fieldset className='flex flex-col w-full'>
+            <fieldset className='flex flex-col w-full gap-2'>
                <Input label type="email" required name="email" placeholder="email" value={signup.email} onChange={handleChange} />
                <Input label type="password" required name="password" placeholder="password" value={signup.password} onChange={handleChange} />
                <Button type="submit" onClick={handleSubmit} className="my-4" disabled={disabled}><p>{buttontxt}</p></Button>

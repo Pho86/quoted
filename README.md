@@ -15,3 +15,10 @@
 - Users can edit and delete the quotes only if they are the author of the same
 - **(Optional) Bonus:** Users can like quotes and quotes should display the number of likes received.
 
+Please be sure to use a **mobile-first approach** for this challenge. Make the app desktop-responsive only if time allows, **but it is mandatory for the app to be mobile-responsive**.
+
+This exercise is designed to give you unlimited creative freedom as you develop a solution /
+implementation. Feel free to use any packages/tools as you see fit; the goal is a functional mobile-responsive app
+with a reasonable amount of CSS stylings and efficient use of Firestore.
+
+* likes are not yet implemented

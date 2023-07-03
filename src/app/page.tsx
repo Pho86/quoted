@@ -31,7 +31,7 @@ export default function LandingPage() {
                   <div className="flex-grow h-px bg-gray-400"></div>
                </div>
                <Link href="/login#register">
-                  <Button className='bg-black text-white hover:bg-zinc-300'><p>sign up</p></Button>
+                  <Button className='bg-black text-white hover:bg-zinc-700 hover:text-white'><p>sign up</p></Button>
                </Link>
             </div>
          </section>
