@@ -29,7 +29,7 @@ interface userInterface {
    avatar: string
 }
 
-export default function Quote({
+export default function FavQuotes({
    quote,
    user,
    liked
@@ -60,8 +60,8 @@ export default function Quote({
          setLikedQuote(false)
       } else {
          const request = await axios.post(`/api/quote/likes/${quote.id}/`, { user, quoteid: quote.id })
-         setLikedQuote(true)
          if(quote.likes === undefined) quote.likes = 0
+         setLikedQuote(true)
          quote.likes += 1
       }
    }
@@ -109,7 +109,7 @@ export default function Quote({
    return (
       <>
          <AnimatePresence>
-            {active ? <motion.div className='p-2 bg-zinc-50 transition-all border w-full rounded-lg' exit={{ opacity: 0, backgroundColor: ['hsl(0,0%,98%)', 'hsl(352.6,95.7%,81.8%)'] }} transition={{ duration: 0.3, opacity: { duration: 1.2 } }}>
+            {likedQuote ? <motion.div className='p-2 bg-zinc-50 transition-all border w-full rounded-lg' exit={{ opacity: 0, backgroundColor: ['hsl(0,0%,98%)', 'hsl(352.6,95.7%,81.8%)'] }} transition={{ duration: 0.3, opacity: { duration: 1.2 } }}>
                <div className='flex w-full gap-2'>
                   <Link href={`/profile/${quote.uid}`} className="grid">
                      <Image src={quote.avatar} alt="avatar" width={100} height={100} style={{ objectFit: "fill" }} className="w-[4.25rem] h-16 shrink-0 aspect-square hidden md:block rounded-full hover:brightness-75 transition-all" />

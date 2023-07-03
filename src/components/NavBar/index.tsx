@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link";
-import { AiOutlineHome, AiFillHome, AiOutlinePlusCircle, AiFillPlusCircle } from "react-icons/ai"
+import { AiOutlineHome, AiFillHome, AiOutlinePlusCircle, AiFillPlusCircle, AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 import Button from "../Button";
 import { useAuthContext } from "@/context/AuthContext";
 export default function NavBar({
@@ -16,7 +16,7 @@ export default function NavBar({
    return (
       <>
          <nav className="fixed top-0 w-screen text-black border-b-2 bg-white px-8 md:px-24 py-2 md:grid grid-cols-3 justify-between items-center z-[1000] scroll-smooth hidden">
-            <div className="flex items-center gap-5">
+            <div className="flex items-center gap-3">
                <div className="font-bold text-2xl transition-all py-1 hover:bg-zinc-100 rounded-md p-2">
                   <Link href="/home" className="flex gap-2 items-center">
                      <h1 className="whitespace-nowrap">quoted</h1>
@@ -28,6 +28,14 @@ export default function NavBar({
                </Link> :
                   <Link href={"/home"} className="text-lg p-2 transition-all rounded-md hover:bg-zinc-100">
                      <h2>Home</h2>
+                  </Link>
+               }
+               {active === 3 ? <Link href={"/likes"} className="text-lg p-2 transition-all rounded-md bg-zinc-300">
+                  <h2>Likes</h2>
+               </Link>
+                  :
+                  <Link href={"/likes"} className="text-lg p-2 transition-all rounded-md hover:bg-zinc-100">
+                     <h2>Likes</h2>
                   </Link>
                }
             </div>
@@ -51,7 +59,7 @@ export default function NavBar({
             }
          </nav>
 
-         <nav className="fixed bottom-0 w-screen text-black bg-white border-t-2 border-zinc-500 grid grid-cols-3 justify-between items-center z-[1000] md:hidden">
+         <nav className="fixed bottom-0 w-screen text-black bg-white border-t-2 border-zinc-500 grid grid-cols-4 justify-between items-center z-[1000] md:hidden">
             {active === 0 ? <Link href={"/home"} className="transition-all bg-zinc-300 p-4 w-full grid place-items-center">
                <AiFillHome size={30} />
                <p className="font-bold">◍</p>
@@ -71,6 +79,17 @@ export default function NavBar({
                <Link href={"/create"} className="transition-all hover:bg-zinc-100 p-4 w-full grid place-items-center">
                   <AiOutlinePlusCircle size={30} />
                   <p>create</p>
+               </Link>
+            }
+
+            {active === 3 ? <Link href={"/likes"} className="transition-all bg-zinc-300 p-4 w-full grid place-items-center">
+               <AiFillHeart size={30} />
+               <p className="font-bold">◍</p>
+            </Link>
+               :
+               <Link href={"/likes"} className="transition-all hover:bg-zinc-100 p-4 w-full grid place-items-center">
+                  <AiOutlineHeart size={30} />
+                  <p>likes</p>
                </Link>
             }
 
