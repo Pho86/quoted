@@ -31,7 +31,7 @@ export default function NavBar({
                   </Link>
                }
             </div>
-            {active === 0 ? <Link href="/create" className=" transition-all place-self-center p-2" >
+            {active === 1 ? <Link href="/create" className=" transition-all place-self-center p-2" >
                <AiFillPlusCircle size={30} className="-translate-y-1 transition-all" />
             </Link> :
                <Link href="/create" className=" transition-all place-self-center p-2" >
@@ -40,7 +40,7 @@ export default function NavBar({
             }
             {user ?
                <Link href="/profile" className="place-self-end self-center">
-                  <Image src={user.photoURL ? user.photoURL : "https://firebasestorage.googleapis.com/v0/b/quoted-5a75d.appspot.com/o/profileImages%2FQUOTEDLOGO.png?alt=media&token=77ddde79-fa22-4726-8c26-928f1cbea25a"} width={35} height={35} className="w-10 h-10 group-hover:-translate-y-1 hover:brightness-[80%] hover:drop-shadow-lg transition-all rounded-full" alt="your profile image" />
+                  <Image src={user.photoURL ? user.photoURL : "https://firebasestorage.googleapis.com/v0/b/quoted-5a75d.appspot.com/o/profileImages%2FQUOTEDLOGO.png?alt=media&token=77ddde79-fa22-4726-8c26-928f1cbea25a"} width={35} height={35} className="w-10 h-10 group-hover:-translate-y-1 hover:brightness-[80%] hover:drop-shadow-md transition-all rounded-full" alt="your profile image" />
                </Link>
                :
                <>

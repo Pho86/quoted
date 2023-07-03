@@ -22,3 +22,14 @@ implementation. Feel free to use any packages/tools as you see fit; the goal is 
 with a reasonable amount of CSS stylings and efficient use of Firestore.
 
 * likes are not yet implemented
+
+
+## Tools Used
+* Next JS,
+* Typescript 
+* React,
+* Firebase
+* Axios
+* Tailwindcss
+* Framer-motion
+* Lottie-react
