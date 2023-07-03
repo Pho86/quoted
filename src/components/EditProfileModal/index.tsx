@@ -83,9 +83,8 @@ export default function EditProfileForm({
             setErrorMessage("Failed to select an image, or the image is too large (under 20mbs)")
          }
       }
-      else if(event.target.name === "hideProfile"){
+      else if (event.target.name === "hideProfile") {
          setSignup({ ...profile, [event.target.name]: event.target.checked })
-         console.log(profile)
       }
       else {
          setSignup({ ...profile, [event.target.name]: event.target.value });
