@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextResponse } from 'next/server'
 import { db,  } from '../../../../firebase/firebase.config'
-import { addDoc, collection, Timestamp, doc, query, orderBy, getDocs, deleteDoc} from 'firebase/firestore'
+import { addDoc, collection, Timestamp, doc, query, orderBy, getDocs, deleteDoc, serverTimestamp} from 'firebase/firestore'
 
 export async function GET(req: any, res: any) {
    let quotes = [] as any;
@@ -28,7 +28,7 @@ export async function POST(req: any) {
       uid: userData.uid,
       quote: quoteData.quote,
       authour: quoteData.authour,
-      created_on: Timestamp.fromDate(new Date()),
+      created_on: serverTimestamp(),
       avatar: userData.photoURL,
       username: userData.displayName,
    });
