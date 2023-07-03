@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import { FaEllipsisV, FaHeart } from 'react-icons/fa'
+import { FaEllipsisV, FaHeart, FaRegHeart } from 'react-icons/fa'
 import Link from 'next/link'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -15,6 +15,7 @@ interface quoteInterface {
    uid: string
    username: string
    id: string
+   likes: number
 }
 
 interface timeInterface {
@@ -31,13 +32,37 @@ interface userInterface {
 export default function Quote({
    quote,
    user,
+   liked
 }: {
    quote: quoteInterface
-   user: userInterface
+   user: userInterface,
+   liked: any
 }) {
    const [openMenu, setOpenMenu] = useState(false)
    const router = useRouter()
    const [active, setActive] = useState(true)
+   const [likedQuote, setLikedQuote] = useState(false)
+
+   useEffect(() => {
+      for (let i = 0; i < liked.length; i++) {
+         if (quote.id === liked[i].quoteid) {
+            setLikedQuote(true)
+         }
+      }
+
+   }, [liked, quote.id])
+
+   const likeQuote = async () => {
+      if (likedQuote) {
+         const request = await axios.put(`/api/quote/likes/${quote.id}/`, { user, quoteid: quote.id })
+         quote.likes -= 1
+         setLikedQuote(false)
+      } else {
+         const request = await axios.post(`/api/quote/likes/${quote.id}/`, { user, quoteid: quote.id })
+         setLikedQuote(true)
+         quote.likes += 1
+      }
+   }
    const deleteQuote = async () => {
       setActive(false)
       try {
@@ -52,18 +77,18 @@ export default function Quote({
    }
 
    let formattedTimestamp;
-   if(quote.created_on) {
+   if (quote.created_on) {
       formattedTimestamp =
-      new Date(quote.created_on.seconds * 1000 + quote.created_on.nanoseconds / 1000000).toLocaleDateString("en-US", {
-         month: "2-digit",
-         day: "2-digit",
-         year: "2-digit",
-      }) +
-      " " +
-      new Date(quote.created_on.seconds * 1000 + quote.created_on.nanoseconds / 1000000).toLocaleTimeString("en-US", {
-         hour: "2-digit",
-         minute: "2-digit",
-      });
+         new Date(quote.created_on.seconds * 1000 + quote.created_on.nanoseconds / 1000000).toLocaleDateString("en-US", {
+            month: "2-digit",
+            day: "2-digit",
+            year: "2-digit",
+         }) +
+         " " +
+         new Date(quote.created_on.seconds * 1000 + quote.created_on.nanoseconds / 1000000).toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+         });
    }
    let updatedTimestamp;
    if (quote.updated_on) {
@@ -106,7 +131,11 @@ export default function Quote({
                         </div>
                      </div>
                      <div className='flex flex-col gap-2'>
-                        <FaHeart className='text-red-500 cursor-pointer' size={20} />
+                        <div className='flex gap-1 text-rose-500'>
+                           {likedQuote ? <FaHeart onClick={likeQuote} className='text-rose-500 cursor-pointer' size={20} /> :
+                              <FaRegHeart onClick={likeQuote} className='text-rose-500 cursor-pointer' size={20} />}
+                           {quote.likes ? quote.likes : 0}
+                        </div>
                         {user && user.uid === quote.uid && <p className='flex justify-end'><FaEllipsisV className='cursor-pointer' onClick={() => { setOpenMenu(!openMenu) }} /></p>}
                         {openMenu && <div className='flex flex-col bg-white absolute border rounded -translate-x-20 translate-y-4'>
                            <ul>

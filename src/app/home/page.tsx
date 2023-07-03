@@ -14,6 +14,7 @@ export default function Home() {
    const [quotes, setQuotes] = useState([])
    const [users, setUsers] = useState([])
    const [userData, setUserData] = useState({})
+   const [likes, setLikes] = useState([])
    // @ts-ignore
    const { user } = useAuthContext();
    useEffect(() => {
@@ -27,7 +28,10 @@ export default function Home() {
       }
       const getUserData = async () => {
          const res = await axios.get(`/api/profile/${user.uid}`)
-         console.log(res.data)
+         return res
+      }
+      const getUserLikes = async () => {
+         const res = await axios.get(`/api/profile/likes/${user.uid}`)
          return res
       }
       getQuotes().then((res) => {
@@ -41,7 +45,9 @@ export default function Home() {
          .catch(console.error)
       getUserData().then((res) => {
          setUserData(res.data)
-        
+      })
+      getUserLikes().then((res) => {
+         setLikes(res.data)
       })
    }, [])
    return (
@@ -54,14 +60,14 @@ export default function Home() {
                      <Image src="/logo.svg" width={35} height={35} className="visible md:invisible" alt="quoted logo" />
                      {user && <>
                         <h1 className='text-3xl font-semibold'>welcome <span className=''>{user.displayName}</span>!</h1>
-                        <UserCard user={user} userData={userData}/>
+                        <UserCard user={user} userData={userData} />
                      </>
                      }
                      <h2 className='text-2xl font-semibold'>other quoters...</h2>
                      {users && <UsersList users={users} />}
                      <h1 className='text-2xl font-semibold'>recently posted quotes</h1>
                      {quotes.map((quote: any, i) => (
-                        <Quote key={quote.id} quote={quote} user={user} />
+                        <Quote key={quote.id} quote={quote} user={user} liked={likes} />
                      ))}
                   </section>
                </main>

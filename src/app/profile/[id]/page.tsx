@@ -27,6 +27,7 @@ export default function Profile({ params }: { params: Params }) {
    const { user } = useAuthContext();
    const [userData, setUserData] = useState<any>(null)
    const [userQuotes, setUserQuotes] = useState<any>([])
+   const [userLikes, setUserLikes] = useState<any>([])
    const router = useRouter()
    useEffect(() => {
       getUserData(params.id)
@@ -37,6 +38,8 @@ export default function Profile({ params }: { params: Params }) {
          setUserData(data.data)
          const quotes = await axios.get(`/api/profile/quotes/${userID}`)
          setUserQuotes(quotes.data)
+         const likes = await axios.get(`/api/profile/likes/${user.uid}`)
+         setUserLikes(likes.data)
          return data.data
       }
       catch (err) {
@@ -94,7 +97,7 @@ export default function Profile({ params }: { params: Params }) {
                   </div>
                   {userQuotes.length > 0 ?
                      userQuotes.map((quote: any, index: number) => {
-                        return <Quote key={quote.id} quote={quote} user={user} />
+                        return <Quote key={quote.id} quote={quote} user={user} liked={userLikes}/>
                      })
                      : <>
                         <p>this user has no quotes </p>
