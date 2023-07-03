@@ -109,6 +109,9 @@ export default function SignUpForm() {
             setErrorMessage("failed to select an image, or the image is too large (under 20mbs)")
          }
       }
+      else if (event.target.name === "hideProfile") {
+         setSignup({ ...signup, [event.target.name]: event.target.checked })
+      }
       else {
          setSignup({ ...signup, [event.target.name]: event.target.value });
       }
