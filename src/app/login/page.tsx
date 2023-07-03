@@ -2,18 +2,29 @@
 
 import SignInForm from '@/components/SignInForm'
 import SignUpForm from '@/components/SignupForm'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Image from "next/image"
+import { useRouter } from 'next/navigation'
+import { useAuthContext } from '@/context/AuthContext'
 
 type Params = {
   params: {
-     user: any
+    user: any
   }
   id: string
 }
 
 export default function Login({ params }: { params: Params }) {
-  console.log(params)
+  const router = useRouter()
+  // @ts-ignore
+  const { user } = useAuthContext()
+  useEffect(() => {
+    if (user != null) {
+      router.push(`/home`)
+    }
+  }
+    , [router, user])
+
   const [showSignIn, setShowSignIn] = useState(true)
   return (
     <main className="flex min-h-screen flex-col justify-center px-8 md:px-24 md:py-12 gap-2">
@@ -22,16 +33,16 @@ export default function Login({ params }: { params: Params }) {
       {showSignIn ? <>
         <SignInForm />
         <div className='flex'>
-          <p>Don&apos;t have an account? 
+          <p>Don&apos;t have an account?
 
-          <a className='text-blue-500 cursor-pointer' onClick={() => setShowSignIn(false)}> Sign Up</a>
+            <a className='text-blue-500 cursor-pointer' onClick={() => setShowSignIn(false)}> Sign Up</a>
           </p>
         </div>
       </> : <>
         <SignUpForm />
         <div className='flex'>
-          <p>Have an account already? 
-          <a className='text-blue-500 cursor-pointer' onClick={() => setShowSignIn(true)}> Sign In</a>
+          <p>Have an account already?
+            <a className='text-blue-500 cursor-pointer' onClick={() => setShowSignIn(true)}> Sign In</a>
           </p>
         </div>
       </>}

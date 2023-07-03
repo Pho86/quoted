@@ -1,13 +1,13 @@
 "use client"
 import Image from 'next/image'
-import { useEffect, useContext } from 'react'
-import { AuthContext } from '@/context/AuthContext'
+import { useEffect } from 'react'
+import { useAuthContext } from '@/context/AuthContext'
 import { useRouter } from 'next/navigation'
 import Button from '@/components/Button'
 import Link from 'next/link'
 export default function LandingPage() {
    // @ts-ignore
-   const { user } = useContext(AuthContext)
+   const { user } = useAuthContext();
    const router = useRouter()
    useEffect(() => {
       if (user != null) {
