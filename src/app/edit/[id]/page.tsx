@@ -20,6 +20,7 @@ export default function EditPage({ params }: { params: Params }) {
    const { user } = useAuthContext()
    const router = useRouter()
    const [quoteData, setQuoteData] = useState()
+   
    useEffect(() => {
       getQuote()
    }, [])
