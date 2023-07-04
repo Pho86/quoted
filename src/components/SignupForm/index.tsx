@@ -69,7 +69,7 @@ export default function SignUpForm() {
          try {
             const request = await axios.post('/api/profile', { signup })
             await signInWithEmailAndPassword(auth, signup.email, signup.password)
-            setButtonTxt("created!");
+            setButtonTxt("created");
             router.push('/home')
          }
          catch (error) {
