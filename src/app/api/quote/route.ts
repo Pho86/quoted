@@ -31,6 +31,7 @@ export async function POST(req: any) {
       created_on: serverTimestamp(),
       avatar: userData.photoURL,
       username: userData.displayName,
+      likes: 0
    });
    return NextResponse.json(quoteData)
 }

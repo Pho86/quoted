@@ -21,15 +21,12 @@ This exercise is designed to give you unlimited creative freedom as you develop 
 implementation. Feel free to use any packages/tools as you see fit; the goal is a functional mobile-responsive app
 with a reasonable amount of CSS stylings and efficient use of Firestore.
 
-* likes are not yet implemented
-
-
 ## Tools Used
 * Next JS,
-* Typescript 
+* Typescript,
 * React,
-* Firebase
-* Axios
-* Tailwindcss
-* Framer-motion
+* Firebase,
+* Axios,
+* Tailwindcss,
+* Framer-motion,
 * Lottie-react

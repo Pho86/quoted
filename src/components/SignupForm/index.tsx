@@ -6,10 +6,11 @@ import Button from '../Button';
 import axios from "axios"
 import Image from 'next/image';
 import { ref } from 'firebase/storage';
-import { storage } from '../../../firebase/firebase.config';
+import { storage, auth } from '../../../firebase/firebase.config';
 import { uploadBytes, getDownloadURL } from 'firebase/storage';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 
 export default function SignUpForm() {
    const [signup, setSignup] = useState({
@@ -65,11 +66,10 @@ export default function SignUpForm() {
       if (number === 2) {
          setButtonTxt("creating");
          setDisabled(true)
-         console.log(signup)
          try {
-            const request = await axios.post('/api/profile', { signup },
-            )
-            setButtonTxt("created!");
+            const request = await axios.post('/api/profile', { signup })
+            await signInWithEmailAndPassword(auth, signup.email, signup.password)
+            setButtonTxt("created");
             router.push('/home')
          }
          catch (error) {
@@ -111,6 +111,7 @@ export default function SignUpForm() {
       }
       else if (event.target.name === "hideProfile") {
          setSignup({ ...signup, [event.target.name]: event.target.checked })
+         console.log(signup)
       }
       else {
          setSignup({ ...signup, [event.target.name]: event.target.value });
