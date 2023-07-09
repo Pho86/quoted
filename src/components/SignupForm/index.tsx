@@ -21,7 +21,7 @@ export default function SignUpForm() {
       avatar: "",
       bio: "",
       imageType: "",
-      hideProfile: false,
+      hideProfile: true,
    })
    const [buttontxt, setButtonTxt] = useState<string>("next");
    const [errorMessage, setErrorMessage] = useState<string>("");
